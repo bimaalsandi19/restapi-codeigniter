@@ -156,6 +156,20 @@ class Category extends ResourceController
      */
     public function delete($id = null)
     {
-        //
+        $category = $this->category->getCategory($id);
+
+        if (!empty($category)) {
+            $deleteCategory = $this->category->deleteCategory($id);
+            $output = [
+                'status' => 1,
+                'message' => 'Delete Successfully'
+            ];
+        } else {
+            $output = [
+                'status' => 1,
+                'message' => 'Delete Failed'
+            ];
+        }
+        return $this->respond($output);
     }
 }

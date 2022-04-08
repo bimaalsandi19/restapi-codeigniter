@@ -39,4 +39,9 @@ class CategoryModel extends Model
     {
         return $this->db->table($this->table)->update($data, ['category_id' => $id]);
     }
+
+    public function deleteCategory($id)
+    {
+        return $this->db->table($this->table)->delete(['category_id' => $id]);
+    }
 }
