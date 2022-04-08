@@ -43,7 +43,21 @@ class Category extends ResourceController
      */
     public function show($id = null)
     {
-        //
+        $category = $this->category->getCategory($id);
+        if (!empty($category)) {
+            $output = [
+                'category_id' => intval($category['category_id']),
+                'category_name' => $category['category_name'],
+                'category_status' => $category['category_status'],
+            ];
+            return $this->respond($output, 200);
+        } else {
+            $output = [
+                'status' => 0,
+                'message' => 'Data Menemukan Data'
+            ];
+            return $this->respond($output, 400);
+        }
     }
 
     /**
@@ -90,7 +104,21 @@ class Category extends ResourceController
      */
     public function edit($id = null)
     {
-        //
+        $category = $this->category->getCategory($id);
+        if (!empty($category)) {
+            $output = [
+                'category_id' => intval($category['category_id']),
+                'category_name' => $category['category_name'],
+                'category_status' => $category['category_status'],
+            ];
+            return $this->respond($output, 200);
+        } else {
+            $output = [
+                'status' => 0,
+                'message' => 'Data Menemukan Data'
+            ];
+            return $this->respond($output, 400);
+        }
     }
 
     /**
@@ -100,7 +128,25 @@ class Category extends ResourceController
      */
     public function update($id = null)
     {
-        //
+        // Menangkap data dari method PUT, DELETE, PATCH
+        $data = $this->request->getRawInput();
+
+        // Cek data category berdasarkan id
+        $category = $this->category->getCategory($id);
+
+        if (!empty($category)) {
+            $updateCategory = $this->category->updateCategory($data, $id);
+            $output = [
+                'status' => 1,
+                'message' => 'Update Successfully'
+            ];
+        } else {
+            $output = [
+                'status' => 1,
+                'message' => 'Update Failed'
+            ];
+        }
+        return $this->respond($output);
     }
 
     /**

@@ -16,12 +16,12 @@ class CategoryModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['category_name', 'category_status'];
 
-    public function getCategory($id = null)
+    public function getCategory($id = false)
     {
-        if ($id == null) {
+        if ($id == false) {
             return $this->findAll();
         } else {
-            return $this->getWhere(['category_id', $id])->getRowArray();
+            return $this->getWhere(['category_id' => $id])->getRowArray();
         }
     }
 
@@ -34,4 +34,9 @@ class CategoryModel extends Model
     //         return false;
     //     }
     // }
+
+    public function updateCategory($data, $id)
+    {
+        return $this->db->table($this->table)->update($data, ['category_id' => $id]);
+    }
 }
